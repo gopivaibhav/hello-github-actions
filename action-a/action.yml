@@ -7,6 +7,10 @@ inputs:
     description: "Who to greet"
     required: true
     default: "World"
+  COLLEGE:
+    description: "College name"
+    required: true
+    default: "Tier 3 college"
 
 runs:
   using: "docker"
