@@ -28,7 +28,7 @@ jobs:
         - name: Print Output
           # if: |
           #   steps.is_organization_member.outputs.result == true
-          run: echo {{steps.is_organization_member.outputs.result}}
+          run: echo $steps.is_organization_member.outputs.result
 
       # - uses: ethomson/send-tweet-action@v1
       #   with:
