@@ -13,10 +13,10 @@ jobs:
     if: ${{ github.event.label.name == 'bug' }}
     runs-on: ubuntu-latest
     steps:
-        - run: |
-            cat << OBJECT
-            ${{ toJson(github) }}
-            OBJECT
+        # - run: |
+        #     cat << OBJECT
+        #     ${{ toJson(github) }}
+        #     OBJECT
         - name: Check if organization member
           id: is_organization_member
           uses: jamessingleton/is-organization-member@1.0.1
@@ -27,7 +27,7 @@ jobs:
             token: ${{ github.token }}
         - name: Print Output
           if: |
-            steps.is_organization_member.outputs.result == true
+            steps.is_organization_member.outputs.result == false
           run: echo Yesbro
 
       # - uses: ethomson/send-tweet-action@v1
