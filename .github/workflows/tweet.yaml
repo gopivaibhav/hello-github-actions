@@ -26,7 +26,7 @@ jobs:
             username: ${{ github.event.issue.user.login }}
             token: ${{ github.token }}
         - name: Print Output
-          # if: ${{ steps.is_organization_member.outputs.result == true }}
+          if: ${{ steps.is_organization_member.outputs.result == true }}
           run: echo Yesbro
           # run: echo "The value is ${{ steps.is_organization_member.outputs.result }}"
 
