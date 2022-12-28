@@ -3,6 +3,8 @@ name: 'Tweet when Labeled'
 on:
   issues:
     types: labeled
+  pull_request:
+    types: labeled
 
 permissions:
   contents: read
@@ -24,11 +26,8 @@ jobs:
           if: ${{ steps.is_organization_member.outputs.result == 'true' }}
           uses: ethomson/send-tweet-action@v1
           with:
-            status: "Hello Twitter, Checkout this issue - ${{ github.event.issue.html_url }} with the title ${{ github.event.issue.title }}"
+            status: "Hello Twitter, Check this out - ${{ github.event.issue.html_url }} with the title ${{ github.event.issue.title }}"
             consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
             consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
             access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
             access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-
-          # run: echo Yesbro
-          # run: echo "The value is ${{ steps.is_organization_member.outputs.result }}"
