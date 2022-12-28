@@ -15,19 +15,21 @@ jobs:
     if: ${{ github.event.label.name == 'issue/tweet' }}
     runs-on: ubuntu-latest
     steps:
-        - name: Check if organization member
-          id: is_organization_member
-          uses: jamessingleton/is-organization-member@1.0.0
-          with:
-            organization: Equinox-IIIT-Lucknow
-            username: ${{ github.event.issue.user.login }}
-            token: ${{ github.token }}
-        - name: Print Output
-          if: ${{ steps.is_organization_member.outputs.result == 'true' }}
-          uses: ethomson/send-tweet-action@v1
-          with:
-            status: "Hello Twitter, Check this out - ${{ github.event.issue.html_url }} with the title ${{ github.event.issue.title }}"
-            consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-            consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-            access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-            access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+        - name: Get JSON data
+          run: echo ${{ toJson(github) }}
+        # - name: Check if organization member
+        #   id: is_organization_member
+        #   uses: jamessingleton/is-organization-member@1.0.0
+        #   with:
+        #     organization: Equinox-IIIT-Lucknow
+        #     username: ${{ github.event.issue.user.login }}
+        #     token: ${{ github.token }}
+        # - name: Print Output
+        #   if: ${{ steps.is_organization_member.outputs.result == 'true' }}
+        #   uses: ethomson/send-tweet-action@v1
+        #   with:
+        #     status: "Hello Twitter, Check this out - ${{ github.event.issue.html_url }} with the title ${{ github.event.issue.title }}"
+        #     consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+        #     consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+        #     access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+        #     access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
