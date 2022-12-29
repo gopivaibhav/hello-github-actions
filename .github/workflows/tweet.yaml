@@ -21,8 +21,8 @@ jobs:
           id: checkUserMember
           with:
             username: ${{ github.actor }}
-            organization: 'Equinox-IIIT-Lucknow'
-            team: 'hof-team'
+            organization: Equinox-IIIT-Lucknow
+            team: hof-team
             GITHUB_TOKEN: ${{ secrets.PAT }}
         - name: Check the status  
           # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
