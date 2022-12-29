@@ -25,8 +25,8 @@ jobs:
             team: 'hof-team'
             GITHUB_TOKEN: ${{ secrets.PAT }}
         - name: Check the status  
-          if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-          run: echo Yes
+          # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
+          run: echo ${{ steps.checkUserMember.outputs.isTeamMember }}
         # - name: Check if organization member
         #   id: is_organization_member
         #   uses: jamessingleton/is-organization-member@1.0.0
