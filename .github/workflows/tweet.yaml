@@ -15,8 +15,18 @@ jobs:
     if: ${{ github.event.label.name == 'issue/tweet' }}
     runs-on: ubuntu-latest
     steps:
-        - name: Get JSON data
-          run: echo ${{ toJson(github) }}
+        # - name: Get JSON data
+        #   run: echo ${{ toJson(github) }}
+        - uses: tspascoal/get-user-teams-membership@v2
+          id: checkUserMember
+          with:
+            username: ${{ github.actor }}
+            organization: 'Equinox-IIIT-Lucknow'
+            team: 'hof-team'
+            GITHUB_TOKEN: ${{ secrets.PAT }}
+        - name: Check the status  
+          if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
+          run: echo Yes
         # - name: Check if organization member
         #   id: is_organization_member
         #   uses: jamessingleton/is-organization-member@1.0.0
