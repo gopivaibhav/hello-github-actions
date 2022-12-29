@@ -23,7 +23,7 @@ jobs:
             username: ${{ github.actor }}
             organization: 'Equinox-IIIT-Lucknow'
             team: 'hof-team'
-            GITHUB_TOKEN: ${{ GITHUB_TOKEN }}
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         - name: Check the status  
           if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
           run: echo Yes
