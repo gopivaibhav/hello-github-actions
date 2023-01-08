@@ -24,16 +24,17 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.PAT }}
         # - name: Check the status  
         #   if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-        # - if: ${{ github.event.issue }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-        - uses: ethomson/send-tweet-action@v1
+        - name: Check if it is issue
+          if: ${{ github.event.issue }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
+          uses: ethomson/send-tweet-action@v1
           with:
-            status: "Help wanted on this issue: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }}"
+            status: "Help wanted on this issue: '${{ github.event.issue.title }}' - ${{ github.event.issue.html_url }}"
             consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
             consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
             access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
             access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
-        - name: Check if it is PR && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-          if: ${{ github.event.pull_request }}
+        - name: Check if it is PR
+          if: ${{ github.event.pull_request }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
           uses: ethomson/send-tweet-action@v1
           with:
             status: "Help wanted: "${{ github.event.pull_request.title }}" - ${{ github.event.pull_request.html_url }}"
