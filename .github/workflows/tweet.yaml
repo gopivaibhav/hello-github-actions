@@ -15,18 +15,41 @@ jobs:
     if: ${{ github.event.label.name == 'issue/tweet' }}
     runs-on: ubuntu-latest
     steps:
-        # - name: Get JSON data
-        #   run: echo ${{ toJson(github) }}
         - uses: tspascoal/get-user-teams-membership@v2
           id: checkUserMember
           with:
             username: ${{ github.actor }}
-            organization: Equinox-IIIT-Lucknow
-            team: hof-team
+            organization: 'Equinox-IIIT-Lucknow'
+            team: 'hof-team'
+            GITHUB_TOKEN: ${{ secrets.PAT }}
+        - name: Check if it is issue
+          if: ${{ github.event.issue }}
+          run: echo ISSUE
+        - name: Check if it is PR
+          if: ${{ github.event.pull_request }}
+          run: echo PULLREQUEST
+        - name: Check the status  
+          # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
+          run: ${{ steps.checkUserMember.outputs.teams }}
+    if: ${{ github.event.label.name == 'bug' }}
+    runs-on: ubuntu-latest
+    steps:
+        - uses: tspascoal/get-user-teams-membership@v2
+          id: checkUserMember
+          with:
+            username: ${{ github.actor }}
+            organization: 'gopivaibhav'
+            team: 'hof-team'
             GITHUB_TOKEN: ${{ secrets.PAT }}
         - name: Check the status  
           # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-          run: echo ${{ steps.checkUserMember.outputs.isTeamMember }}
+          run: echo ${{ steps.checkUserMember.outputs.teams }}
+        - name: Check if it is issue
+          if: ${{ github.event.issue }}
+          run: echo ISSUE
+        - name: Check if it is PR
+          if: ${{ github.event.pull_request }}
+          run: echo PULLREQUEST
         # - name: Check if organization member
         #   id: is_organization_member
         #   uses: jamessingleton/is-organization-member@1.0.0
@@ -39,6 +62,7 @@ jobs:
         #   uses: ethomson/send-tweet-action@v1
         #   with:
         #     status: "Hello Twitter, Check this out - ${{ github.event.issue.html_url }} with the title ${{ github.event.issue.title }}"
+        #     status: "Help wanted: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }} #opensource"
         #     consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
         #     consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
         #     access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
