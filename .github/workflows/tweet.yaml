@@ -20,7 +20,7 @@ jobs:
           with:
             username: ${{ github.actor }}
             organization: 'Equinox-IIIT-Lucknow'
-            team: 'hof-team'
+            team: 'HOF Team'
             GITHUB_TOKEN: ${{ secrets.PAT }}
         - name: Check if it is issue
           if: ${{ github.event.issue }}
@@ -30,7 +30,7 @@ jobs:
           run: echo PULLREQUEST
         - name: Check the status  
           # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-          run: ${{ steps.checkUserMember.outputs.teams }}
+          run: echo ${{ steps.checkUserMember.outputs.isTeamMember }}
         # - name: Check if organization member
         #   id: is_organization_member
         #   uses: jamessingleton/is-organization-member@1.0.0
