@@ -28,7 +28,7 @@ jobs:
           if: ${{ github.event.issue }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
           uses: ethomson/send-tweet-action@v1
           with:
-            status: "Help wanted on this issue: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }} #opensource"
+            status: "Help wanted on this issue: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }}"
             consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
             consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
             access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
@@ -37,7 +37,7 @@ jobs:
           if: ${{ github.event.pull_request }}
           uses: ethomson/send-tweet-action@v1
           with:
-            status: "Help wanted: "${{ github.event.pull_request.title }}" - ${{ github.event.pull_request.html_url }} #opensource"
+            status: "Help wanted: "${{ github.event.pull_request.title }}" - ${{ github.event.pull_request.html_url }}"
             consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
             consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
             access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
