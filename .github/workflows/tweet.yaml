@@ -31,25 +31,6 @@ jobs:
         - name: Check the status  
           # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
           run: ${{ steps.checkUserMember.outputs.teams }}
-    if: ${{ github.event.label.name == 'bug' }}
-    runs-on: ubuntu-latest
-    steps:
-        - uses: tspascoal/get-user-teams-membership@v2
-          id: checkUserMember
-          with:
-            username: ${{ github.actor }}
-            organization: 'gopivaibhav'
-            team: 'hof-team'
-            GITHUB_TOKEN: ${{ secrets.PAT }}
-        - name: Check the status  
-          # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-          run: echo ${{ steps.checkUserMember.outputs.teams }}
-        - name: Check if it is issue
-          if: ${{ github.event.issue }}
-          run: echo ISSUE
-        - name: Check if it is PR
-          if: ${{ github.event.pull_request }}
-          run: echo PULLREQUEST
         # - name: Check if organization member
         #   id: is_organization_member
         #   uses: jamessingleton/is-organization-member@1.0.0
