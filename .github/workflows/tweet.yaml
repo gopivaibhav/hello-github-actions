@@ -24,8 +24,7 @@ jobs:
             GITHUB_TOKEN: ${{ secrets.PAT }}
         # - name: Check the status  
         #   if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-        - name: Check if it is issue
-          if: ${{ github.event.issue }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
+        - if: ${{ github.event.issue }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
           uses: ethomson/send-tweet-action@v1
           with:
             status: "Help wanted on this issue: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }}"
