@@ -22,15 +22,27 @@ jobs:
             organization: 'Equinox-IIIT-Lucknow'
             team: 'HOF Team'
             GITHUB_TOKEN: ${{ secrets.PAT }}
+        # - name: Check the status  
+        #   if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
         - name: Check if it is issue
-          if: ${{ github.event.issue }}
-          run: echo ISSUE
-        - name: Check if it is PR
+          if: ${{ github.event.issue }} && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
+          uses: ethomson/send-tweet-action@v1
+          with:
+            status: "Help wanted on this issue: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }} #opensource"
+            consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+            consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+            access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+            access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+        - name: Check if it is PR && ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
           if: ${{ github.event.pull_request }}
-          run: echo PULLREQUEST
-        - name: Check the status  
-          # if: ${{ steps.checkUserMember.outputs.isTeamMember == 'true' }}
-          run: echo ${{ steps.checkUserMember.outputs.isTeamMember }}
+          uses: ethomson/send-tweet-action@v1
+          with:
+            status: "Help wanted: "${{ github.event.pull_request.title }}" - ${{ github.event.pull_request.html_url }} #opensource"
+            consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
+            consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
+            access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
+            access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
+          # run: echo ${{ steps.checkUserMember.outputs.isTeamMember }}
         # - name: Check if organization member
         #   id: is_organization_member
         #   uses: jamessingleton/is-organization-member@1.0.0
@@ -40,11 +52,3 @@ jobs:
         #     token: ${{ github.token }}
         # - name: Print Output
         #   if: ${{ steps.is_organization_member.outputs.result == 'true' }}
-        #   uses: ethomson/send-tweet-action@v1
-        #   with:
-        #     status: "Hello Twitter, Check this out - ${{ github.event.issue.html_url }} with the title ${{ github.event.issue.title }}"
-        #     status: "Help wanted: "${{ github.event.issue.title }}" - ${{ github.event.issue.html_url }} #opensource"
-        #     consumer-key: ${{ secrets.TWITTER_CONSUMER_API_KEY }}
-        #     consumer-secret: ${{ secrets.TWITTER_CONSUMER_API_SECRET }}
-        #     access-token: ${{ secrets.TWITTER_ACCESS_TOKEN }}
-        #     access-token-secret: ${{ secrets.TWITTER_ACCESS_TOKEN_SECRET }}
